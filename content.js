@@ -9,7 +9,8 @@ let isSpeaking = false;
 // Mapeo de dominios a selectores de subtítulos
 const SUBTITLE_SELECTORS = [
     { match: /youtube\.com/, selector: '.ytp-caption-segment' },
-    { match: /mylearn\.oracle\.com/, selector: '.vjs-text-track-cue > div' }
+    { match: /mylearn\.oracle\.com/, selector: '.vjs-text-track-cue > div' },
+    { match: /my\.ine\.com/, selector: '.jw-text-track-cue' } // <--- Agregado para INE
     // Agrega aquí más sitios y selectores
 ];
 

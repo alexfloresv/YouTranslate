@@ -21,7 +21,8 @@
     {
       "matches": [
         "https://www.youtube.com/watch*",
-        "https://mylearn.oracle.com/*"
+        "https://mylearn.oracle.com/*",
+        "https://my.ine.com/*"
       ],
       "js": ["content.js"]
     }
