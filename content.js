@@ -1,3 +1,8 @@
+// Polyfill para compatibilidad Chrome/Firefox
+if (typeof browser === "undefined") {
+  var browser = chrome;
+}
+
 let synth = window.speechSynthesis;
 let lastSubtitleText = '';
 let run = false;

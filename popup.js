@@ -1,3 +1,8 @@
+// Polyfill para compatibilidad Chrome/Firefox
+if (typeof browser === "undefined") {
+  var browser = chrome;
+}
+
 let read = false;
 let defaultVoiceSet = false; // Flag para evitar seleccionar múltiples veces
 
