@@ -6,7 +6,22 @@ let checkInterval;
 let nextSubtitleText = null;
 let isSpeaking = false;
 
-const SUBTITLE_SELECTOR = '.ytp-caption-segment';
+// Mapeo de dominios a selectores de subtítulos
+const SUBTITLE_SELECTORS = [
+    { match: /youtube\.com/, selector: '.ytp-caption-segment' },
+    { match: /mylearn\.oracle\.com/, selector: '.vjs-text-track-cue > div' }
+    // Agrega aquí más sitios y selectores
+];
+
+function getSubtitleSelector() {
+    const url = window.location.href;
+    for (const entry of SUBTITLE_SELECTORS) {
+        if (entry.match.test(url)) return entry.selector;
+    }
+    // Fallback: intenta con YouTube
+    return '.ytp-caption-segment';
+}
+
 utterance.rate = 1.5;
 
 function speakNow(text) {
@@ -26,7 +41,8 @@ utterance.onend = () => {
 
 function checkAndSpeakSubtitles() {
     if (!run) return;
-    const subtitleElements = document.querySelectorAll(SUBTITLE_SELECTOR);
+    const selector = getSubtitleSelector();
+    const subtitleElements = document.querySelectorAll(selector);
     let currentText = '';
 
     if (subtitleElements.length > 0) {
