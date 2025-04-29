@@ -11,9 +11,14 @@ function handleMessageError(error) {
     }
 }
 
+document.getElementById('rate-range').addEventListener('input', (e) => {
+    document.getElementById('rate-value').textContent = e.target.value + 'x';
+});
+
 document.getElementById('status').addEventListener('click', () => {
     const voiceSelect = document.getElementById('voice-select');
     const voiceURI = voiceSelect.value;
+    const rate = parseFloat(document.getElementById('rate-range').value);
 
     // Asegurarse de que se haya seleccionado una voz
     if (!voiceURI) {
@@ -28,7 +33,7 @@ document.getElementById('status').addEventListener('click', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         // Verificar si hay una pestaña activa y si la URL es válida (opcional pero bueno)
         if (tabs.length > 0 && tabs[0].id) {
-            const messagePayload = action === 'start' ? { action: 'start', voiceURI } : { action: 'stop' };
+            const messagePayload = action === 'start' ? { action: 'start', voiceURI, rate } : { action: 'stop' };
             chrome.tabs.sendMessage(tabs[0].id, messagePayload, (response) => {
                 // Manejar la respuesta o el error de chrome.runtime.lastError
                 if (chrome.runtime.lastError) {

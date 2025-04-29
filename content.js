@@ -36,12 +36,13 @@ function checkAndSpeakSubtitles() {
             .trim();
     }
 
-    if (currentText && currentText !== lastSubtitleText) {
+    // Solo lee si el texto cambió respecto al último leído o hablado
+    if (currentText && currentText !== lastSubtitleText && (!isSpeaking || currentText !== utterance.text)) {
         if (!isSpeaking) {
             lastSubtitleText = currentText;
             speakNow(currentText);
         } else {
-            nextSubtitleText = currentText; // Guardar para leer después
+            nextSubtitleText = currentText;
         }
     } else if (!currentText && lastSubtitleText !== '') {
         lastSubtitleText = '';
@@ -84,6 +85,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             utterance.voice = voices[0];
             utterance.lang = voices[0].lang;
         }
+        // Cambia la velocidad si viene en el mensaje
+        if (request.rate) utterance.rate = request.rate;
         startReading();
         sendResponse({ result: 'Started reading' });
     } else if (request.action === 'stop') {

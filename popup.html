@@ -12,6 +12,9 @@
 	<h1>Translate</h1>
 	<div class="column center">
     <select id="voice-select"></select>
+		<label for="rate-range">Velocidad:</label>
+		<input type="range" id="rate-range" min="0.5" max="2.5" step="0.1" value="1.5">
+		<span id="rate-value">1.5x</span>
 		<button id="status">start</button>
 	</div>
 	<script src="popup.js"></script>
